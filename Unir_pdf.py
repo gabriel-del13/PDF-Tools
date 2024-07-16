@@ -79,7 +79,7 @@ frame.place(relx=0.5, rely=0.2, relwidth=0.65, relheight=0.5, anchor='n')
 
 pdf_paths = [""] * 5
 
-labels = ["PDF Base", "Archivo PDF", "Archivo PDF", "Archivo PDF", "Archivo PDF"]
+labels = ["PDF Base", "PDF #2", "PDF #3", "PDF #4", "PDF #5"]
 entries = []
 buttons_select = []
 buttons_clear = []
