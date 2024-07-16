@@ -34,6 +34,10 @@ def borrar_pdf(entry, index):
     pdf_paths[index] = ""
 
 def guardar_pdf_combinado():
+    if not pdf_paths[0]:
+        messagebox.showwarning("Advertencia", "Por favor, selecciona el PDF Base.")
+        return
+
     selected_pdfs = [pdf for pdf in pdf_paths if pdf]
     if len(selected_pdfs) < 2:
         messagebox.showwarning("Advertencia", "Por favor, selecciona al menos dos PDFs.")
