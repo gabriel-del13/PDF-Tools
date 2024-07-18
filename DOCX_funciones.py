@@ -31,25 +31,29 @@ def borrar_docx(entry_doc):
     doc_path = ""
 
 def guardar_doc_como_pdf():
+
+    global doc_path
+    if not doc_path:
+        messagebox.showwarning("Advertencia", "Por favor, selecciona un documento.")
+        return
     log_file = "conversion.log"
     logging.basicConfig(filename=log_file, level=logging.DEBUG, format='%(asctime)s %(levelname)s %(message)s')
 
     sys.stdout = open(log_file, 'a')
     sys.stderr = open(log_file, 'a')
-    global doc_path
-    if not doc_path:
-        messagebox.showwarning("Advertencia", "Por favor, selecciona un documento.")
-        return
+    try:
+        output_file = filedialog.asksaveasfilename(defaultextension=".pdf", initialfile="Documento_convertido.pdf", filetypes=[("PDF files", "*.pdf")])
+        if not output_file:
+            return
 
-    output_file = filedialog.asksaveasfilename(defaultextension=".pdf", initialfile="Documento_convertido.pdf", filetypes=[("PDF files", "*.pdf")])
-    if not output_file:
-        return
-
-    if funconvertir_docx_a_pdf(doc_path, output_file):
-        messagebox.showinfo("Realizado", f"Documento convertido exitosamente en '{output_file}'")
+        if funconvertir_docx_a_pdf(doc_path, output_file):
+            messagebox.showinfo("Realizado", f"Documento convertido exitosamente en '{output_file}'")
+    finally:
         sys.stdout.close()
         sys.stderr.close()
         logging.shutdown()
         
         if os.path.exists(log_file):
             os.remove(log_file)
+            
+            
