@@ -7,7 +7,6 @@ import sys
 from PDF_funciones import *
 from DOCX_funciones import *
 
-
 # Pedazo de codigo sacado de stackoverflow, solo asi pude exportar el fondo y el icono cuando cree el .exe
 def resource_path(relative_path):
     try:
@@ -17,6 +16,7 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 ###--------------------------------------------------------###
+
 def mostrar_combinador_pdfs():
     for widget in root.winfo_children():
         widget.destroy()
