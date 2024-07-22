@@ -3,50 +3,50 @@ from tkinter import filedialog, messagebox
 from PyPDF2 import PdfMerger
 import os
 
-def combinar_pdfs(pdf_paths, output):
+def combinar_PDFs(acumula_PDF, salida_PDF_combinado):
     try:
         merger = PdfMerger()
-        for pdf in pdf_paths:
+        for pdf in acumula_PDF:
             if pdf:
                 merger.append(pdf)
-        merger.write(output)
+        merger.write(salida_PDF_combinado)
         merger.close()
         return True
     except Exception as e:
         messagebox.showerror("Error", f"Error al combinar los PDFs: {e}")
         return False
 
-def seleccionar_pdf(entry_pdf, index, pdf_paths):
+def seleccionar_PDF(entrada_PDF, index, acumula_PDF):
     file = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
     if file:
-        entry_pdf.config(state='normal')
-        entry_pdf.delete(0, 'end')
-        entry_pdf.insert(0, os.path.basename(file))
-        entry_pdf.config(state='readonly')
-        pdf_paths[index] = file
+        entrada_PDF.config(state='normal')
+        entrada_PDF.delete(0, 'end')
+        entrada_PDF.insert(0, os.path.basename(file))
+        entrada_PDF.config(state='readonly')
+        acumula_PDF[index] = file
 
-def borrar_pdf(entry_pdf, index, pdf_paths):
-    entry_pdf.config(state='normal')
-    entry_pdf.delete(0, 'end')
-    entry_pdf.config(state='readonly')
-    pdf_paths[index] = ""
+def borrar_PDF(entrada_PDF, index, acumula_PDF):
+    entrada_PDF.config(state='normal')
+    entrada_PDF.delete(0, 'end')
+    entrada_PDF.config(state='readonly')
+    acumula_PDF[index] = ""
 
-def guardar_pdf_combinado(pdf_paths):
-    if not pdf_paths[0]:
+def guardar_PDF_combinado(acumula_PDF):
+    if not acumula_PDF[0]:
         messagebox.showwarning("Advertencia", "Por favor, selecciona el PDF Base.")
         return False
 
-    selected_pdfs = [pdf for pdf in pdf_paths if pdf]
-    if len(selected_pdfs) < 2:
+    seleccionados_PDFs = [pdf for pdf in acumula_PDF if pdf]
+    if len(seleccionados_PDFs) < 2:
         messagebox.showwarning("Advertencia", "Por favor, selecciona al menos dos PDFs.")
         return False
 
-    output_file = filedialog.asksaveasfilename(defaultextension=".pdf", initialfile="PDF_combinado.pdf", filetypes=[("PDF files", "*.pdf")])
-    if not output_file:
+    salida_PDF_combinado_file = filedialog.asksaveasfilename(defaultextension=".pdf", initialfile="PDF_combinado.pdf", filetypes=[("PDF files", "*.pdf")])
+    if not salida_PDF_combinado_file:
         return False
 
-    if combinar_pdfs(selected_pdfs, output_file):
-        messagebox.showinfo("Realizado", f"PDFs combinados exitosamente en '{output_file}'")
+    if combinar_PDFs(seleccionados_PDFs, salida_PDF_combinado_file):
+        messagebox.showinfo("Realizado", f"PDFs combinados exitosamente en '{salida_PDF_combinado_file}'")
         return True
     else:
         return False
