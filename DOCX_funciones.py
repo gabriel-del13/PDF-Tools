@@ -1,3 +1,4 @@
+# DOCX_funciones.py
 from docx2pdf import convert
 from pdf2docx import Converter
 from tkinter import filedialog, messagebox
@@ -68,7 +69,7 @@ def funconvertir_PDF_a_DOC(entrada_PDF, salida_DOCX):
         messagebox.showerror("Error", f"Error al convertir el documento: {e}")
         return False
 
-def seleccionar_PDF(entrada_PDF):
+def seleccionar_PDF_De_DOCX(entrada_PDF):
     archivo_PDF = filedialog.askopenfilename(filetypes=[("PDF Files", "*.pdf")])
     if archivo_PDF:
         entrada_PDF.config(state='normal')
@@ -78,7 +79,7 @@ def seleccionar_PDF(entrada_PDF):
         global comprueba_PDF
         comprueba_PDF = archivo_PDF
 
-def borrar_PDF(entrada_PDF):
+def borrar_PDF_De_DOCX(entrada_PDF):
     entrada_PDF.config(state='normal')
     entrada_PDF.delete(0, 'end')
     entrada_PDF.config(state='readonly')
