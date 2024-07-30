@@ -1,4 +1,4 @@
-# Interfaz.py
+# Main.py
 import tkinter as tk
 import os
 import sys

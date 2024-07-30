@@ -1,4 +1,5 @@
 #IMG_funciones.py
+
 from tkinter import filedialog, messagebox
 from PIL import Image
 from pdf2image import convert_from_path
