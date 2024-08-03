@@ -188,7 +188,7 @@ def frame_convertidor_IMG():
     
     button_borrar_PDF_IMG = tk.Button(frame_PDF_IMG, text="X", relief="flat", bg="#f44336", fg="white", command=lambda: borrar_PDF_a_IMG(entry_campoentrada_PDF_IMG))
     button_borrar_PDF_IMG.grid(row=0, column=3, padx=5, pady=5)
-
+    
     button_convertir_PDF_IMG = tk.Button(window, text="Convertir", command=guardar_PDF_como_IMG, bg="#0df846", fg="black", width=10, height=2, font=("Helvetica", 10))
     button_convertir_PDF_IMG.bind("<Enter>", on_enter)
     button_convertir_PDF_IMG.bind("<Leave>", on_leave)
@@ -200,7 +200,7 @@ def frame_convertidor_IMG():
     button_cambiar_ventana_PDF = tk.Button(window, text="Combinar PDFs", command=mostrar_combinador_PDF, )
     button_cambiar_ventana_PDF.place(relx=0.04, rely=0.02)
     
-    button_cambiar_ventana_DOC = tk.Button(window, text="Convertir IMG a PDF", command=mostrar_convertidor_DOC)
+    button_cambiar_ventana_DOC = tk.Button(window, text="Convertir DOC a PDF", command=mostrar_convertidor_DOC)
     button_cambiar_ventana_DOC.place(relx=0.2, rely=0.02)
 
     borrar_IMG(entry_campoentrada_IMG)

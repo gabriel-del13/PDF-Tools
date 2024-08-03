@@ -2,7 +2,7 @@
 
 from tkinter import filedialog, messagebox
 from PIL import Image
-from pdf2image import convert_from_path
+from pdf2image import convert_from_path, pdfinfo_from_path
 import img2pdf
 import os
 import logging
@@ -65,11 +65,17 @@ comprueba_PDF = []
 def funconvertir_PDF_a_IMG(entrada_PDF, salida_IMG):
     try:
         poppler_path = os.path.join(os.path.dirname(__file__), 'poppler-24.07.0/Library/bin')
-
+        info = pdfinfo_from_path(entrada_PDF, poppler_path=poppler_path)
+        num_paginas = info.get("Pages", 0)
+        if num_paginas > 50:
+            messagebox.showinfo("Advertencia", "Este proceso puede tardar varios minutos, por favor no cierre la aplicacion")
         paginas = convert_from_path(entrada_PDF, dpi=300, poppler_path=poppler_path)
         for i, pagina in enumerate(paginas):
-            imagen_path = f"Imagen_{i + 1}.png"
-            pagina.save(salida_IMG, 'PNG')
+            if salida_IMG.lower().endswith('.png'):
+                imagen_path = f"{salida_IMG[:-4]}_{i + 1}.png"
+            else:
+                imagen_path = f"{salida_IMG}_{i + 1}.png"
+            pagina.save(imagen_path, 'PNG')
 
         return True
     except Exception as e:
@@ -77,6 +83,7 @@ def funconvertir_PDF_a_IMG(entrada_PDF, salida_IMG):
         return False
 
 def seleccionar_PDF_a_IMG(entrada_PDF):
+    messagebox.showwarning("Atencion", "Esta aplicacion permite la conversion de archivos ligeros, por favor, no introduzca un PDF mayor de 100 paginas")
     archivo_PDF = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
     if archivo_PDF:
         entrada_PDF.config(state='normal')
@@ -99,7 +106,7 @@ def guardar_PDF_como_IMG():
         messagebox.showwarning("Advertencia", "Por favor, selecciona un archivo PDF.")
         return
     try:
-        salida_IMG_file = filedialog.asksaveasfilename(defaultextension=".png", initialfile="Imagen.png", filetypes=[("Image Files", "*.jpg *.png *.jpeg")])
+        salida_IMG_file = filedialog.asksaveasfilename(defaultextension=".png", initialfile="Imagen", filetypes=[("Image Files", "*.jpg *.png *.jpeg")])
         if not salida_IMG_file:
             return
 
